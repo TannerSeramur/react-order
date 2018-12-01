@@ -5,7 +5,8 @@ import MatchUp from './MatchUp';
 
 class App extends React.Component{
     state ={
-        santas: {}
+        santas: {},
+        nameList: []
     }
     addSanta = santa => {
         console.log('adding santa');
@@ -18,12 +19,36 @@ class App extends React.Component{
         
         Object.keys(this.state.santas).map(i => {   
             const newState = {...this.state};
-            newState.santas.person='tanner';
+            console.log('new state here',newState);
+            newState.nameList.push(this.state.santas[i].name);
+            console.log('one state set');
             return this.setState(newState);
+        });
+
+        Object.keys(this.state.santas).map(i => {   
+            let newState = {...this.state};
+            console.log(newState.nameList);
+
+            let num = Math.floor(Math.random() * this.state.nameList.length);
+            
+
+            while(this.state.nameList[num] === this.state.santas[i].name){
+                console.log('names are the same',this.state.nameList[num],this.state.santas[i].name);
+                num = Math.floor(Math.random() * this.state.nameList.length);
+                console.log('new ones',this.state.nameList[num],this.state.santas[i].name);
+                
+            }
+
+            newState.santas[i].person = this.state.nameList[num];
+            newState.nameList.splice(num,1);
+
+            return this.setState(newState);
+        });
         
 
-        });
-            console.log('setPerson');
+
+        return this.setState();
+         
         
       }
 
