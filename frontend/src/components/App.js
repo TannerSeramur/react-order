@@ -29,10 +29,10 @@ class App extends React.Component{
             let newState = {...this.state};
             console.log(newState.nameList);
 
-            let num = Math.floor(Math.random() * this.state.nameList.length);
-            
+            let num = this.state.santas[0] ? this.state.santas.length : Math.floor(Math.random() * this.state.nameList.length);
 
             while(this.state.nameList[num] === this.state.santas[i].name){
+                console.log('num here', num);
                 console.log('names are the same',this.state.nameList[num],this.state.santas[i].name);
                 num = Math.floor(Math.random() * this.state.nameList.length);
                 console.log('new ones',this.state.nameList[num],this.state.santas[i].name);
