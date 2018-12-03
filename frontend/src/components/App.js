@@ -2,13 +2,14 @@ import React from 'react';
 import AddSanta from './AddSanta';
 import SantaList from './SantaList';
 import MatchUp from './MatchUp';
-import Send from './Send';
 import Pairs from './Pairs';
+import axios from 'axios';
 
 class App extends React.Component{
     state ={
         santas: {},
-        nameList: []
+        nameList: [],
+        showPairs: false
     }
     addSanta = santa => {
         console.log('adding santa');
@@ -28,11 +29,11 @@ class App extends React.Component{
         });
         
 
-        Object.keys(this.state.santas).map(i => {   
+        Object.keys(this.state.santas).map((i,index) => {   
             let newState = {...this.state};
             console.log(newState.nameList);
 
-            let num = this.state.santas[i] === 0 ? this.state.nameList.length : Math.floor(Math.random() * this.state.nameList.length);
+            let num = index === 0 ? this.state.nameList.length-1 : Math.floor(Math.random() * this.state.nameList.length);
 
             console.log('NUM HERE!!!!!!', num);
             console.log(this.state.nameList.length);
@@ -51,11 +52,26 @@ class App extends React.Component{
             return this.setState(newState);
         });
         
-
-
         return this.setState();
          
         
+      }
+
+      toggleShowPairs = () =>{
+          this.setState({showPairs: !this.state.showPairs});
+      }
+
+      sendEmail = () => {
+         alert('sending emails');
+        //  axios.post('/api/send-email', {...this.state.santas})
+        axios.post('/sendEmail', {...this.state.santas})
+         .then(res => {
+             console.log(res);
+         })
+         .catch(error => {
+             console.log(error);
+         })
+         
       }
 
 
@@ -72,15 +88,17 @@ class App extends React.Component{
                         ))}
                 </ul>
                 <MatchUp {...this.state.santas} setPerson={this.setPerson}/>
-                <Send {...this.state.santas} details={this.state.santas}/>
-                <ul className="pairs">
+
+                <button onClick={this.toggleShowPairs}>Show Pair's</button>
+                <button onClick={this.sendEmail}>Send</button>
+
+                {this.state.showPairs === true ? 
+                (<ul className="pairs">
                 {Object.keys(this.state.santas).map(key => (
-                            <Pairs 
-                                key={key} 
-                                details={this.state.santas[key]} 
-                            />
+                            <Pairs key={key} details={this.state.santas[key]}/>
                         ))}
-                </ul>
+                </ul> )
+                : null }
 
             </div>
         )
