@@ -2,6 +2,8 @@ import React from 'react';
 import AddSanta from './AddSanta';
 import SantaList from './SantaList';
 import MatchUp from './MatchUp';
+import Send from './Send';
+import Pairs from './Pairs';
 
 class App extends React.Component{
     state ={
@@ -24,12 +26,16 @@ class App extends React.Component{
             console.log('one state set');
             return this.setState(newState);
         });
+        
 
         Object.keys(this.state.santas).map(i => {   
             let newState = {...this.state};
             console.log(newState.nameList);
 
-            let num = this.state.santas[0] ? this.state.santas.length : Math.floor(Math.random() * this.state.nameList.length);
+            let num = this.state.santas[i] === 0 ? this.state.nameList.length : Math.floor(Math.random() * this.state.nameList.length);
+
+            console.log('NUM HERE!!!!!!', num);
+            console.log(this.state.nameList.length);
 
             while(this.state.nameList[num] === this.state.santas[i].name){
                 console.log('num here', num);
@@ -66,6 +72,16 @@ class App extends React.Component{
                         ))}
                 </ul>
                 <MatchUp {...this.state.santas} setPerson={this.setPerson}/>
+                <Send {...this.state.santas} details={this.state.santas}/>
+                <ul className="pairs">
+                {Object.keys(this.state.santas).map(key => (
+                            <Pairs 
+                                key={key} 
+                                details={this.state.santas[key]} 
+                            />
+                        ))}
+                </ul>
+
             </div>
         )
     }
