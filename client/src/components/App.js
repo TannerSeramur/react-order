@@ -84,15 +84,15 @@ class App extends React.Component{
                     
                     <div className='btns'>
                         {Object.keys(this.state.santas).length > 1 ?
-                         ( <MatchUp {...this.state.santas} setPerson={this.setPerson}/>)
+                         ( <MatchUp showBtns={this.state.showBtns} setPerson={this.setPerson}/>)
                          : null}
 
                         {this.state.showBtns === true ? 
-                        (this.state.showPairs === false ? (<button onClick={this.toggleShowPairs}>Show Pair's</button>) : (<button onClick={this.toggleShowPairs}>Hide Pair's</button>))
+                        (<button onClick={this.sendEmail}>Send Email's</button>)
                         : null }
 
                         {this.state.showBtns === true ? 
-                        (<button onClick={this.sendEmail}>Send Email's</button>)
+                        (this.state.showPairs === false ? (<button onClick={this.toggleShowPairs}>Show Pair's</button>) : (<button onClick={this.toggleShowPairs}>Hide Pair's</button>))
                         : null }
                     </div>
                     <ul className="santas">

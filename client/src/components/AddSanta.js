@@ -24,7 +24,7 @@ class AddSanta extends React.Component {
       <div className="addSanta">
         <form className="addForm" onSubmit={this.createSanta}>
             <input name="name" type="text" ref={this.nameRef} placeholder="Name:" required/>
-            <input name="number" type="email" require="true" ref={this.emailRef} placeholder="Email:"/>
+            <input name="number" type="email" require="true" ref={this.emailRef} placeholder="Email: (optional)"/>
             <button className="add" type="submit">+</button>
         </form>
       </div>
