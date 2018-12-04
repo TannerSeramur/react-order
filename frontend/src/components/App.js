@@ -4,28 +4,31 @@ import SantaList from './SantaList';
 import MatchUp from './MatchUp';
 import Pairs from './Pairs';
 import axios from 'axios';
+import '../styles/index.css';
 
 class App extends React.Component{
     state ={
         santas: {},
         nameList: [],
-        showPairs: false
+        showPairs: false,
+        showBtns: false
     }
     addSanta = santa => {
         console.log('adding santa');
         const santas = {...this.state.santas};
         santas[`santa${Date.now()}`] = santa;
         this.setState({ santas });
-    }
+    } 
+     
 
     setPerson = () => {
         
-        Object.keys(this.state.santas).map(i => {   
+
+        Object.keys(this.state.santas).map(i => {       
             const newState = {...this.state};
-            console.log('new state here',newState);
             newState.nameList.push(this.state.santas[i].name);
-            console.log('one state set');
             return this.setState(newState);
+
         });
         
 
@@ -51,11 +54,9 @@ class App extends React.Component{
 
             return this.setState(newState);
         });
-        
-        return this.setState();
-         
-        
-      }
+        this.setState({showBtns: true});
+        return this.setState();    
+    }
 
       toggleShowPairs = () =>{
           this.setState({showPairs: !this.state.showPairs});
@@ -70,40 +71,54 @@ class App extends React.Component{
          })
          .catch(error => {
              console.log(error);
-         })
-         
+         })         
       }
-
 
     render(){
         return (
             <div className="main-container">
-                <AddSanta {...this.state} addSanta={this.addSanta}/>
-                <ul className="santas">
-                {Object.keys(this.state.santas).map(key => (
-                            <SantaList 
-                                key={key} 
-                                details={this.state.santas[key]} 
-                            />
-                        ))}
-                </ul>
-                <MatchUp {...this.state.santas} setPerson={this.setPerson}/>
+                <h1>Secret Santa Helper</h1>
+                <div className="santa-container">
+                    <AddSanta {...this.state} addSanta={this.addSanta}/>
+                    
+                    <div className='btns'>
+                        {Object.keys(this.state.santas).length > 1 ?
+                         ( <MatchUp {...this.state.santas} setPerson={this.setPerson}/>)
+                         : null}
 
-                <button onClick={this.toggleShowPairs}>Show Pair's</button>
-                <button onClick={this.sendEmail}>Send</button>
+                        {this.state.showBtns === true ? 
+                        (this.state.showPairs === false ? (<button onClick={this.toggleShowPairs}>Show Pair's</button>) : (<button onClick={this.toggleShowPairs}>Hide Pair's</button>))
+                        : null }
 
-                {this.state.showPairs === true ? 
-                (<ul className="pairs">
-                {Object.keys(this.state.santas).map(key => (
-                            <Pairs key={key} details={this.state.santas[key]}/>
-                        ))}
-                </ul> )
-                : null }
+                        {this.state.showBtns === true ? 
+                        (<button onClick={this.sendEmail}>Send Email's</button>)
+                        : null }
+                    </div>
+                    <ul className="santas">
 
+                     {Object.keys(this.state.santas).length > 0 ? 
+                    (<div className="table-head">
+                        <h3>Santas:</h3>
+                        {/* <h3>Email:</h3> */}
+                    </div>)
+                    : null }
+                    {Object.keys(this.state.santas).map(key => (
+                                <SantaList key={key} details={this.state.santas[key]} />
+                            ))}
+                    </ul>
+
+                    {this.state.showPairs === true ? 
+                    (<ul className="pairs">
+                    <h3>----- Pair's Here -----</h3>
+                    {Object.keys(this.state.santas).map(key => (
+                                <Pairs key={key} details={this.state.santas[key]}/>
+                            ))}
+                    </ul> )
+                    : null }
+                </div>
             </div>
         )
     }
-
 }
 
 export default App;

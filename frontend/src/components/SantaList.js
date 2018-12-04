@@ -6,7 +6,7 @@ class SantaList extends React.Component{
         return(
             <React.Fragment>
                 <li className="single-santa">
-                    <h3 className="santa-name">Name: {name} Email: {email}</h3>
+                    <h3 className="santa-name">{name}: {email}</h3>
                 </li>
             </React.Fragment>
 
