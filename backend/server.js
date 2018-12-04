@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 // const superagent = require('superagent');
 const nodemailer = require('nodemailer');
+const path = require('path'); //added this
 
 // app setup
 const app = module.exports = express();
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 3002;
 require('dotenv').config();
 
 // middleware
+app.use(express.static(path.join(__dirname, 'frontend/build'))); //added this
 app.use(cors());
 app.use( bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
