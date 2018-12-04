@@ -9,6 +9,8 @@ h1{
   font-family: 'Nunito', sans-serif;
   font-size: 2em;
   padding: 10px;
+  background-color: #f74440;
+  color: #fff;
 }
 .main-container{
   height: 100vh;
@@ -60,6 +62,7 @@ input{
 h3{
   font-family: 'Nunito', sans-serif;
   font-size: 1em;
+  
 }
 .add{
   font-size: 30px;
