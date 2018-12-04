@@ -46,19 +46,16 @@ button{
 }
 .btns{
   display: flex;
-  /* justify-content: center; */
-  /* flex-direction: column; */
-  /* background-color: green; */
-  /* width: 100px; */
+
 }
 input{
   border: none;
-  /* border-radius: 10px; */
-  /* height: 15px; */
   width: 40%;
   margin: 5px;
   padding: 5px;
   border-bottom: 1px solid #f74440;
+  border-radius: 0;
+  font-size: 16px;
 }
 h3{
   font-family: 'Nunito', sans-serif;
@@ -70,8 +67,7 @@ h3{
   padding: 0;
   margin: 0;
   color: black;
-  width: 10px;
-  /* color: #f1f1f1; */
+  width: 20px;
 }
 .table-head{
   display: flex;
